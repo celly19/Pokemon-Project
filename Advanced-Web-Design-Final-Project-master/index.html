@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Pokemon</title>
+        <link rel="stylesheet" href="style.css">
+        <!--link script file for future-->
+        <!--<script src="script.js"></script>-->
+    </head>
+    <body>
+        
+        <div class="header">
+            <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a>
+                    <ul>
+                        <li><a href="about.html#ourProject_anchor">Our Project</a></li>
+                        <li><a href="about.html#aboutUs_anchor">About Us</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        
+        <br>
+        
+        <div id="button">
+            <input type ="text" id ="input" placeholder="Search about a pokemon using name or pokedex #"/> <!-- text input -->
+            <input type ="button" value="Search!" id ="loadButton"/> <!-- button -->
+        </div>   
+        
+        
+        
+        <canvas id="desktopCanvas" width="786" height="577">
+            Update your browser to see the HTML5 Canvas!
+        </canvas>
+        
+        <canvas id="mobileCanvas" width="800" height="1191">
+            Update your browser to see the HTML5 Canvas!
+        </canvas>
+        
+        
+    <style>
+        
+        .nav {
+            height: 40px;
+        }
+        
+        #desktopCanvas {
+            margin: auto;
+            display: block;
+            /*width: 100%;
+            height: 50%;*/
+        }
+        
+        #mobileCanvas {
+            margin: auto;
+            display: block;
+            width:60%;
+            height:auto;
+            position:absolute;
+            top:260px;bottom:0;right:0;left:65px;
+        }
+        
+        #button{
+                display: flex;
+/*                max-width: 800px;*/
+                margin: 70px auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            
+        }
+        
+        #input{
+            width: 70%;
+            height: auto;
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        
+     #loadButton {
+        background-color: #2b75bb;
+        color: #fff;
+        cursor: pointer;
+        padding: 5px;
+        font-size: 20px;
+        }
+
+
+        
+    
+        
+        .header{
+            /*background-color: rgba(173,216,230, 0.5);*/        
+        }
+        
+        
+        
+        
+body {
+  margin: 0;
+  padding:50px 50px;
+  height: 112vh;
+background: url("https://www.themebeta.com/media/cache/728/files/chrome/images/201607/18/c62d3f47edff0f4093d378f017b40e3d.png") center bottom no-repeat;
+/*  background: #ffca00 url("http://brezomadrid.es/Codepen-resources/img/pokedex-wallpaper.jpg") center bottom no-repeat;*/
+  background-size: cover;
+  font-family: 'Consolas', Arial;
+    overflow:hidden;
+            }
+       
+/*mobile version*/
+/* For width 400px and larger: */
+@media only screen and (max-width: 600px) { 
+  body {
+      background-image:url("http://www.sclance.com/backgrounds/pokemon-scenery-background/pokemon-scenery-background_1783511.jpg");
+      background-size:cover;
+      }
+    
+      #input{
+            width: 200% !IMPORTANT;
+            height: auto;
+            padding: 10px ;
+            font-size: 10px;
+        }
+    
+       #loadButton {
+        background-color: #2b75bb;
+        color: #fff;
+        cursor: pointer;
+        padding: 5px;
+        font-size: 18px;
+        }
+
+    
+    
+    
+    #desktopCanvas {
+        visibility: hidden;
+    }
+    #mobileCanvas {
+        visibility: visible;
+    }
+}
+        
+        /*desktop version*/
+        @media only screen and (min-width: 600px) {
+            #desktopCanvas {
+                visibility: visible;
+            }
+            #mobileCanvas {
+                visibility: hidden;
+            }
+        }
+       
+        
+        
+        
+        
+</style>
+        
+    <script>
+        
+        //DESKTOP CANVAS
+        var canvas=document.getElementById("desktopCanvas");
+        var c=canvas.getContext("2d");
+        
+        //draws pokedex image
+        var img=new Image();
+        img.onload = function() {
+            var ca=document.getElementById('desktopCanvas').getContext('2d');
+            ca.drawImage(img, 0, 0);
+        }
+        img.src="pokedex.png";
+        
+        //MOBILE CANVAS
+        var canvas2=document.getElementById("mobileCanvas");
+        var c2=canvas2.getContext("2d");
+        
+        var img2=new Image();
+        img2.onload = function() {
+            var ca2=document.getElementById('mobileCanvas').getContext('2d');
+            
+            ca2.drawImage(img2, 0, 0);
+        }
+        img2.src="small_pokedex.jpg";
+        
+
+        
+        //apis
+        var apiBase = "https://pokeapi.co/api/v2/pokemon-species/";	//starts with this and catenates it
+        var data; //inspect the data and stores data
+        var imgData;
+        var apiImg = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
+        
+        var pokeName;
+        var pokeID;
+        var pokeLocation;
+        var pokeImg = new Image();
+        var input = document.getElementById("input");
+
+        //Set up xhr
+        var xhr = new XMLHttpRequest(); //creates a new objects and sticks it into this
+        //Set the button listener
+        loadButton.addEventListener("click", buttonPressed);         
+        
+        
+        function buttonPressed(){
+
+        xhr.open("GET", apiBase+ input.value); //Grabs the pokemon and puts the input into it
+        xhr.onload=loadPokemon;
+        xhr.send();
+        }
+
+
+        
+
+        //Parse and display data
+        function loadPokemon(){
+            data = JSON.parse(xhr.responseText);
+            //put data into variables
+            pokeName="Name: "+data.name;
+            pokeID="Pokedex Number: "+data.id;
+            pokeLocation="Habitat: "+data.habitat.name;
+            
+            //open img
+            xhr.onload=loadPokemonImg;
+
+            xhr.open("GET", apiImg)
+            xhr.send();
+            
+            
+            
+            //DESKTOP VERSION
+            //redrawsPokedex image
+            
+
+        }
+        
+        function loadPokemonImg(){
+        
+            imgData = JSON.parse(xhr.responseText);  
+             
+            cimg=document.getElementById('desktopCanvas').getContext('2d');
+            
+            //redrawsPokedex image
+            cimg.drawImage(img, 0, 0); 
+            
+            //write text onto Pokedex
+            
+            ca=document.getElementById('desktopCanvas').getContext('2d');
+            ca.drawImage(img, 0, 0);
+            
+            //write text onto Pokedex
+            c.beginPath();
+            c.fillStyle="white";
+            
+            c.font="20px Consolas";
+            c.fillText(pokeName, 460, 200);
+            c.fillText(pokeID, 460, 230);
+            c.fillText(pokeLocation, 460, 260);
+            
+            
+            //MOBILE VERSION
+            //redrawsPokedex image
+            ca2=document.getElementById('mobileCanvas').getContext('2d');
+            ca2.drawImage(img2, 0, 0);
+            
+            //write text onto Pokedex
+            c2.beginPath();
+            c2.fillStyle="black";
+            
+            c2.font="30px Consolas";
+            c2.fillText(pokeName, 200, 1050);
+            c2.fillText(pokeID, 200, 1080);
+            c2.fillText(pokeLocation, 200, 1110);
+            
+            cimg.beginPath();
+            cimg.fillStyle="white";  
+            
+            pokeImg.onload = function() {
+                c.drawImage( pokeImg, 110, 175,161,150 );
+                c2.drawImage( pokeImg, 110, 500,400,400 );
+            };
+            pokeImg.src=imgData.pokemon[data.id-1].img;
+            
+            
+
+        }
+        
+       
+        
+        
+        
+        
+        </script>
+    
+    </body>
+    
+</html>

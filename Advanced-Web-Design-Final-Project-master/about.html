@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+    <head>
+        <title>About</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        
+        <div id="header">
+            <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                 <li  class ="dropdown-tag"><a href="about.html">About</a>
+                   <ul class="dropdown-content">
+                     <li><a href="about.html#ourProject_anchor">Our Project</a></li>
+                        <li><a href="about.html#aboutUs_anchor">About Us</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        
+        
+        <img src="hawlucha_by_jon_on_dribble_modified.png" alt="Logo" id="logo">
+        
+        <!--Logo Source--> 
+        <p id="logoSource">Logo Source: <a href="https://en.wikipedia.org/wiki/International_Space_Station">Jon on Dribble</a></p>
+        <br>
+        
+        <h1 id="ourProject_anchor">Our Project</h1>
+        <p>
+            Hawlucha Helper is a website that allows users to search for information about different Pokemon. Users can search for Pokemon by name or by their Pokedex number. Our website returns said Pokemon's name, Pokedex number, and habitat. Our website retrieves this data from PokeAPI and displays it on an image of a Pokedex. Our website also uses another API to display images of the first 151 Pokemon.
+            <br><br>
+            We used Media Queries to make the website display differently based on the user's screen size. Screen sizes 600 pixels or less are mobile devices, and screens 600 pixels or greater are desktop, laptop, or tablet devices.
+        </p>
+        <br>
+        
+        <h1 id="aboutUs_anchor">About Us</h1>
+        <p>
+            Our Team: Celine Murakami, Xiwen Shen, Zephyr Zambrano
+            <br><br>
+            We are a group of students learning how to design and program websites.
+        </p>
+        
+    <style>
+        
+        .nav {
+            height: 110px;
+        }
+        
+        body {
+            margin: 0;
+            padding:10px 50px;
+            /*height: 100vh;*/
+            height: 80vh;
+
+            background: #ffca00 
+                url("http://brezomadrid.es/Codepen-resources/img/pokedex-wallpaper.jpg") left bottom no-repeat;
+            background-size: cover;
+            font-family: 'Consolas', Arial;
+        }
+        h1{
+            text-align: center;
+        }
+        h1, p {
+            color: black;
+            background-color: rgba(225, 225, 225,.6);
+            font-family: 'Raleway', sans-serif;
+            
+        }
+        
+        p {
+            font-size: 25px;
+        }
+        
+        #logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 5px solid black;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            
+            width: 100%;
+        }
+        
+        #logoSource {
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        /*desktop version*/
+        @media only screen and (min-width: 600px) { 
+            #logo {
+                float: left
+                margin-left: auto;
+                margin-right: auto;
+                border: 5px solid black;
+                width: 400px;
+                height: auto;
+            }    
+        }
+        
+        /*mobile version*/
+        @media only screen and (max-width: 600px) { 
+             body {
+            margin: 0;
+            padding:10px 50px;
+            /*height: 100vh;*/
+            height: 80vh;
+
+            background: #ffca00;
+            background-size: cover;
+            font-family: 'Consolas', Arial;
+        }
+            #logo {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border: 5px solid black;
+                width: 100%;
+            }
+        }
+        
+       
+        
+        </style>
+        
+    </body>
+</html>
